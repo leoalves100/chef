@@ -1,0 +1,6 @@
+# Ref: https://editorconfig.org/
+#
+# space indentation
+[*.rb]
+indent_style = space
+indent_size = 2
