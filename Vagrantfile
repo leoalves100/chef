@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
       vb.customize [
         'modifyvm', :id,
         '--natdnshostresolver1', 'on',
-        '--memory', '512',
+        '--memory', '1024',
         '--cpus', '2'
       ]
     end
