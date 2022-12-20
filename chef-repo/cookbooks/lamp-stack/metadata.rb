@@ -1,3 +1,4 @@
+# Ref: https://docs.chef.io/config_rb_metadata/
 name 'lamp-stack'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
@@ -5,6 +6,7 @@ license 'All Rights Reserved'
 description 'Installs/Configures lamp-stack'
 version '0.1.0'
 chef_version '>= 16.0'
+depends 'mysql'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
