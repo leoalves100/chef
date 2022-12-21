@@ -22,15 +22,20 @@ Vagrant.configure("2") do |config|
       chef.vm.network "private_network", ip: "192.168.56.2"
       
       chef.vm.provision "shell", inline: <<-SHELL
+        # Download chef-server
         curl https://packages.chef.io/files/stable/chef-server/15.3.2/ubuntu/22.04/chef-server-core_15.3.2-1_amd64.deb -o chef-server-core_15.3.2-1_amd64.deb
         sudo dpkg --install chef-server-core_15.3.2-1_amd64.deb
+        
         # Reconfigure chef-server
         sudo chef-server-ctl reconfigure --chef-license=accept
+        
         # Install chef-server GUI
         sudo chef-server-ctl install chef-manage
+        
         # Install Chef Workstation
         curl https://packages.chef.io/files/stable/chef-workstation/21.10.640/ubuntu/20.04/chef-workstation_21.10.640-1_amd64.deb -o chef-workstation_21.10.640-1_amd64.deb
         sudo dpkg --install chef-workstation_21.10.640-1_amd64.deb
+        
         # Reconfigure renew
         sudo chef-server-ctl reconfigure
         sudo chef-manage-ctl reconfigure --accept-license
