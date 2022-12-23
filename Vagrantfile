@@ -9,6 +9,10 @@ Vagrant.configure('2') do |config|
       source: '~/.vagrant.d/insecure_private_key',
       destination: '~/.ssh/'
 
+    config.vm.provision 'file',
+      source: './files/knife.rb',
+      destination: '~/.chef/'
+
     config.vm.define 'chef-infra-server' do |chef|
       chef.vm.hostname = 'chef-infra-server'
       chef.vm.network 'private_network', ip: '192.168.56.2'
