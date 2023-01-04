@@ -35,16 +35,12 @@ install_chef_workstation(){
 }
 
 chef_configuration(){
-    # shellcheck disable=SC2086
     echo "Creating organization..."    
     chef-server-ctl org-create "${ORG}" "${ORG_FULL}"
     
     echo "Creating user..."
+    # shellcheck disable=SC2086
     chef-server-ctl user-create ${USER_NAME} ${USER_FULL_NAME} ${USER_EMAIL} ${USER_PASSWORD} --filename ${PATH_USER}/.chef/${USER_NAME}.pem --orgname ${ORG}
-    
-    clear
-    echo "User: leandro"
-    echo "Passwod: leandro"
 }
 
 clean_installation_files(){
@@ -52,13 +48,11 @@ clean_installation_files(){
 }
 
 main() {
-
     install_chef_server
     install_chef_manage
     install_chef_workstation
     chef_configuration
     clean_installation_files
-    
 }
 
 main "$@"       

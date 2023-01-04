@@ -9,4 +9,4 @@ ssl_verify_mode :verify_none
 log_level     :info
 log_location  STDOUT
 
-knife[:editor] = 'VIM' 
+knife[:editor] = '/usr/bin/vim' 

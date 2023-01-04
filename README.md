@@ -18,3 +18,9 @@
 |-------------------|--------|-----|
 | chef-infra-server | 4GB    | 2   |
 | node              | 1GB    | 2   |
+
+## Executando o projeto
+
+```bash
+$ vagrant up
+```
