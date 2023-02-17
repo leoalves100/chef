@@ -13,6 +13,17 @@ Vagrant.configure('2') do |config|
       source: './files/knife.rb',
       destination: '~/.chef/'
 
+    config.vm.define 'node' do |node|
+      node.vm.hostname = 'node'
+      node.vm.network 'private_network', ip: '192.168.56.3'
+
+      node.vm.provision 'shell', inline: <<-SHELL
+        sed -i 's/.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        systemctl restart sshd
+        echo "vagrant:vagrant" | chpasswd
+      SHELL
+    end
+
     config.vm.define 'chef-infra-server' do |chef|
       chef.vm.hostname = 'chef-infra-server'
       chef.vm.network 'private_network', ip: '192.168.56.2'
@@ -33,19 +44,7 @@ Vagrant.configure('2') do |config|
       end
     end
 
-    config.vm.define 'node' do |node|
-      node.vm.hostname = 'node'
-      node.vm.network 'private_network', ip: '192.168.56.3'
-
-      node.vm.provision 'shell', inline: <<-SHELL
-        sed -i 's/.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-        systemctl restart sshd
-        echo "vagrant:vagrant" | chpasswd
-      SHELL
-    end
-
     config.vm.provider :virtualbox do |vb|
-
       # Enable creating symlinks between guest and host
       vb.customize [
         # see https://github.com/mitchellh/vagrant/issues/713#issuecomment-17296765
@@ -68,4 +67,4 @@ Vagrant.configure('2') do |config|
         '--cpus', '2'
       ]
     end
-  end
+end

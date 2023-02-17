@@ -7,7 +7,6 @@
 - [Chef Workstation](https://docs.chef.io/workstation/)
 - [Chef Automate](https://docs.chef.io/automate/)
 
-
 ## Extras
 
 - Repositório de cookbooks, tools e plugins: [supermarket](https://supermarket.chef.io/)
@@ -22,5 +21,25 @@
 ## Executando o projeto
 
 ```bash
-$ vagrant up
+vagrant up
 ```
+
+## Executando cookbooks nos nodes
+
+```bash
+# Executa apenas uma vez
+chef-client -o 'recipe[<name-cookbook>::<recipe>]'
+
+# Executa e salva na runlist[]
+chef-client -r 'recipe[<name-cookbook>::<recipe>]'
+
+# Arquivo JSON contendo todos os recipes
+chef-client -j first-boot.json
+```
+
+**Obs¹:** Caso não seja passado nenhum `recipe`, ele executa o `default.rb`
+
+## Topics
+
+- [Chef Infra Resources](https://docs.chef.io/resource/)
+- [Data Bags](./chef-repo/cookbooks/lamp-stack/data_bags/README.md)
