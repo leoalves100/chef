@@ -35,12 +35,21 @@ install_chef_workstation(){
 }
 
 chef_configuration(){
-    echo "Creating organization..."    
-    chef-server-ctl org-create "${ORG}" "${ORG_FULL}"
     
     echo "Creating user..."
     # shellcheck disable=SC2086
-    chef-server-ctl user-create ${USER_NAME} ${USER_FULL_NAME} ${USER_EMAIL} ${USER_PASSWORD} --filename ${PATH_USER}/.chef/${USER_NAME}.pem --orgname ${ORG}
+    chef-server-ctl user-create ${USER_NAME} ${USER_FULL_NAME} ${USER_EMAIL} ${USER_PASSWORD} --filename ${PATH_USER}/.chef/${USER_NAME}.pem
+
+    echo "Add user to admin..."
+    chef-server-ctl grant-server-admin-permissions leandro
+    
+    echo "Creating organization..."    
+    chef-server-ctl org-create "${ORG}" "${ORG_FULL}" --association_user ${USER_NAME} --filename  ${PATH_USER}/.chef/${ORG}-validator.pem
+}
+
+node_registration(){
+    echo "Registering node..."
+    knife bootstrap 192.168.56.3 -U vagrant -P 'vagrant' --node-name chef-node-01 --sudo --node-ssl-verify-mode none --yes
 }
 
 clean_installation_files(){
@@ -52,6 +61,7 @@ main() {
     install_chef_manage
     install_chef_workstation
     chef_configuration
+    node_registration
     clean_installation_files
 }
 

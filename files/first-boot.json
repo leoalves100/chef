@@ -1,0 +1,8 @@
+{
+    "run_list": [
+        "recipe[lamp-stack]",
+        "recipe[lamp-stack::php]",
+        "recipe[lamp-stack::apache]",
+        "recipe[lamp-stack::mysql]"
+    ]
+}
