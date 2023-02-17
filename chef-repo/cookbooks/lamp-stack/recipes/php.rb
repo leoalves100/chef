@@ -1,17 +1,17 @@
-package 'php-ppa' do
+apt_repository 'php-ppa' do
   uri 'ppa:ondrej/php'
   distribution 'jammy'
+  action :add
+end
+
+apt_package 'php5.6' do
   action :install
 end
 
-package 'php5' do
+apt_package 'php-pear' do
   action :install
 end
 
-package 'php-pear' do
-  action :install
-end
-
-package 'php-mysql' do
+apt_package 'php-mysql' do
   action :install
 end
